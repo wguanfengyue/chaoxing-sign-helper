@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         学习通签到助手（浏览器登录态版）
-// @namespace    https://github.com/wguanfengyue/%E8%B6%85%E6%98%9F%E5%AD%A6%E4%B9%A0%E9%80%9A%E7%AD%BE%E5%88%B0%E5%8A%A9%E6%89%8B
+// @namespace    https://github.com/wguanfengyue/chaoxing-sign-helper
 // @version      3.5.0
 // @description  在超星页面中检测签到活动；普通和旧版二维码可核对提交，位置签到进入超星官方定位流程。
 // @author       wguanfengyue
-// @homepageURL  https://github.com/wguanfengyue/%E8%B6%85%E6%98%9F%E5%AD%A6%E4%B9%A0%E9%80%9A%E7%AD%BE%E5%88%B0%E5%8A%A9%E6%89%8B
-// @supportURL   https://github.com/wguanfengyue/%E8%B6%85%E6%98%9F%E5%AD%A6%E4%B9%A0%E9%80%9A%E7%AD%BE%E5%88%B0%E5%8A%A9%E6%89%8B/issues
-// @downloadURL  https://raw.githubusercontent.com/wguanfengyue/%E8%B6%85%E6%98%9F%E5%AD%A6%E4%B9%A0%E9%80%9A%E7%AD%BE%E5%88%B0%E5%8A%A9%E6%89%8B/main/signscript.user.js
-// @updateURL    https://raw.githubusercontent.com/wguanfengyue/%E8%B6%85%E6%98%9F%E5%AD%A6%E4%B9%A0%E9%80%9A%E7%AD%BE%E5%88%B0%E5%8A%A9%E6%89%8B/main/signscript.user.js
+// @homepageURL  https://github.com/wguanfengyue/chaoxing-sign-helper
+// @supportURL   https://github.com/wguanfengyue/chaoxing-sign-helper/issues
+// @downloadURL  https://raw.githubusercontent.com/wguanfengyue/chaoxing-sign-helper/main/signscript.user.js
+// @updateURL    https://raw.githubusercontent.com/wguanfengyue/chaoxing-sign-helper/main/signscript.user.js
 // @match        *://chaoxing.com/*
 // @match        *://*.chaoxing.com/*
 // @connect      mooc1-api.chaoxing.com

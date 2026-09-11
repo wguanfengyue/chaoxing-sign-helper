@@ -2,7 +2,7 @@
 
 基于浏览器登录状态的超星学习通用户脚本。它可以读取当前账号的进行中签到，按首页课表定时检测并发出通知；普通签到和旧版二维码签到需要用户核对后才会提交，位置签到进入超星官方定位流程。
 
-[安装脚本](https://raw.githubusercontent.com/wguanfengyue/chaoxing-sign-helper/main/signscript.user.js) · [问题反馈](https://github.com/wguanfengyue/chaoxing-sign-helper/issues) · [更新记录](CHANGELOG.md)
+[安装脚本](https://raw.githubusercontent.com/wguanfengyue/%E8%B6%85%E6%98%9F%E5%AD%A6%E4%B9%A0%E9%80%9A%E7%AD%BE%E5%88%B0%E5%8A%A9%E6%89%8B/main/signscript.user.js) · [问题反馈](https://github.com/wguanfengyue/%E8%B6%85%E6%98%9F%E5%AD%A6%E4%B9%A0%E9%80%9A%E7%AD%BE%E5%88%B0%E5%8A%A9%E6%89%8B/issues) · [更新记录](CHANGELOG.md)
 
 ## 功能
 

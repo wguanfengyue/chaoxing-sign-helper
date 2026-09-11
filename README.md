@@ -28,7 +28,7 @@
 不用每天手动输入时间。脚本读取超星首页课表后，可以选择需要关注的课程，并分别设置提前时间、延后时间和检测间隔。默认会在每次上课开始和下课结束的前后各 10 分钟内检测。
 
 <p align="center">
-  <img src="docs/images/timetable-monitor.png" width="560" alt="按课表选择课程并设置检测时间">
+  <img src="docs/images/timetable-monitor.png" width="720" alt="按课表选择课程并设置检测时间">
 </p>
 
 只有带有效课程 ID 和班级 ID、已绑定超星网络课程的项目可以选择。保持任意超星页面打开即可运行；电脑休眠、浏览器关闭或后台标签页被限速时，检测可能暂停或延迟。
@@ -38,7 +38,7 @@
 可以搜索学校、楼宇或详细地址，也可以拖动地图、点击选点或使用浏览器当前位置。选定坐标后，脚本会通过 OpenStreetMap 地址服务获取对应的文字地址。
 
 <p align="center">
-  <img src="docs/images/map-picker.png" width="760" alt="地图搜索、选点和自动获取地址">
+  <img src="docs/images/map-picker.png" width="720" alt="地图搜索、选点和自动获取地址">
 </p>
 
 ### 保存常用位置
@@ -46,7 +46,7 @@
 常用地点可以保存位置名称、经纬度和显示地址，数据只存放在当前浏览器的 Violentmonkey 或 Tampermonkey 中。地图预设用于查看和核对地点，位置签到仍由超星官方页面完成定位授权。
 
 <p align="center">
-  <img src="docs/images/saved-location.png" width="480" alt="保存常用位置名称、坐标和地址">
+  <img src="docs/images/saved-location.png" width="720" alt="保存常用位置名称、坐标和地址">
 </p>
 
 ## 安装方法

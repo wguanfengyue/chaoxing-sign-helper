@@ -105,3 +105,7 @@ npm run check
 ## 开源许可
 
 [MIT License](LICENSE)
+
+---
+
+如果这个项目对你有帮助，欢迎点一个 ⭐ Star。使用中遇到问题或有功能建议，欢迎通过 [Issues](https://github.com/wguanfengyue/chaoxing-sign-helper/issues) 联系。

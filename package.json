@@ -1,0 +1,12 @@
+{
+  "name": "chaoxing-sign-helper",
+  "private": true,
+  "version": "3.5.0",
+  "description": "基于浏览器登录态的超星学习通签到检测油猴脚本",
+  "license": "MIT",
+  "repository": "github:wguanfengyue/chaoxing-sign-helper",
+  "scripts": {
+    "test": "node test.js",
+    "check": "node --check signscript.user.js"
+  }
+}

@@ -1,69 +1,95 @@
-# 学习通签到助手
+# 超星学习通签到助手
 
-基于浏览器登录状态的超星学习通用户脚本。它可以读取当前账号的进行中签到，按首页课表定时检测并发出通知；普通签到和旧版二维码签到需要用户核对后才会提交，位置签到进入超星官方定位流程。
+[![test](https://github.com/wguanfengyue/chaoxing-sign-helper/actions/workflows/test.yml/badge.svg)](https://github.com/wguanfengyue/chaoxing-sign-helper/actions/workflows/test.yml)
+[![release](https://img.shields.io/github/v/release/wguanfengyue/chaoxing-sign-helper)](https://github.com/wguanfengyue/chaoxing-sign-helper/releases/latest)
+[![license](https://img.shields.io/github/license/wguanfengyue/chaoxing-sign-helper)](LICENSE)
 
-[安装脚本](https://raw.githubusercontent.com/wguanfengyue/chaoxing-sign-helper/main/signscript.user.js) · [问题反馈](https://github.com/wguanfengyue/chaoxing-sign-helper/issues) · [更新记录](CHANGELOG.md)
+一个直接运行在超星网页里的签到辅助脚本。登录超星后即可读取当前账号的签到活动，并根据首页课表在上课、下课前后自动检测和提醒。
 
-## 功能
+脚本不会自动提交签到。每次操作都由用户打开、核对并确认；位置签到会进入超星官方定位页面。
 
-- 复用浏览器已有的超星登录状态，不要求输入账号、密码或复制 Cookie。
-- 读取所有网络课程中的普通、位置和旧版二维码签到。
-- 从 index 首页课表选择课程，在上课和下课时间的前后窗口内定时检测。
-- 发现新活动后显示系统通知和醒目标记，不自动提交。
-- 提交前展示课程、活动、类型和用户填写的信息，并要求再次确认。
-- 位置签到读取服务器公开的位置范围和附加校验，然后以 POST 方式进入超星官方签到页。
-- 提供本机位置收藏、地图选点、地点搜索和地址反查，方便核对地点。
-- 只有服务器明确返回成功时才显示“签到成功”。
+**[安装脚本](https://raw.githubusercontent.com/wguanfengyue/chaoxing-sign-helper/main/signscript.user.js)** · [下载最新版](https://github.com/wguanfengyue/chaoxing-sign-helper/releases/latest) · [反馈问题](https://github.com/wguanfengyue/chaoxing-sign-helper/issues)
 
-## 安装
+## 主要功能
 
-1. 在 Chrome、Edge 或 Firefox 安装 Violentmonkey 或 Tampermonkey。
-2. Chrome 用户需要在扩展详情页打开“允许用户脚本”。
-3. 点击上方“安装脚本”，在脚本管理器页面确认安装。
-4. 打开超星官网并正常登录，刷新页面后点击右下角“签到助手”。
+- **免输账号密码**：直接使用浏览器中已经登录的超星账号，不需要复制 Cookie。
+- **自动查找签到**：一次检查所有已绑定的网络课程，集中显示正在进行的签到活动。
+- **按课表定时检测**：从超星首页读取本周课表，自由选择课程和检测时间。
+- **系统通知提醒**：发现新签到后发送通知，并突出右下角的签到助手入口。
+- **地图选点**：支持搜索地点、拖动地图、点击选点和浏览器定位，并自动获取文字地址。
+- **常用位置**：位置名称、坐标和地址只保存在本机，方便下次查看和核对。
+- **提交前确认**：展示课程、活动类型和填写内容，避免误点或重复提交。
+- **结果判断**：只有服务器明确返回成功时才显示“签到成功”。
 
-第一次读取活动或课表时，脚本管理器可能询问是否允许访问以下域名：
+## 功能展示
 
-- `mooc1-api.chaoxing.com`
-- `mobilelearn.chaoxing.com`
-- `kb.chaoxing.com`
-- `nominatim.openstreetmap.org`（仅地图搜索和地址反查）
+### 按课表定时检测
 
-## 登录和隐私
+不用每天手动输入时间。脚本读取超星首页课表后，可以选择需要关注的课程，并分别设置提前时间、延后时间和检测间隔。默认会在每次上课开始和下课结束的前后各 10 分钟内检测。
 
-跨子域请求由脚本管理器发出，并复用浏览器已有的超星会话。脚本不读取、显示或保存 Cookie，无法访问的 `HttpOnly` Cookie 仍由浏览器随请求发送。
+<p align="center">
+  <img src="docs/images/timetable-monitor.png" width="560" alt="按课表选择课程并设置检测时间">
+</p>
 
-姓名和地址只有在用户勾选保存后才写入本机脚本存储。坐标只有在用户主动保存常用位置后才存储。二维码、Cookie 和密码不会保存。
+只有带有效课程 ID 和班级 ID、已绑定超星网络课程的项目可以选择。保持任意超星页面打开即可运行；电脑休眠、浏览器关闭或后台标签页被限速时，检测可能暂停或延迟。
 
-地图来自 OpenStreetMap，地点搜索与地址反查使用 Nominatim。搜索文字或所选坐标会发送给该服务；脚本把查询限制为至少间隔 1.1 秒，并保留地图署名。
+### 地图选点并自动获取地址
 
-## 定时检测
+可以搜索学校、楼宇或详细地址，也可以拖动地图、点击选点或使用浏览器当前位置。选定坐标后，脚本会通过 OpenStreetMap 地址服务获取对应的文字地址。
 
-脚本从超星 index 首页课表接口读取当前周课程。用户选择课程后，可以设置提前时间、延后时间和刷新间隔。默认在每次上课开始和下课结束的前后各 10 分钟内，以 5 秒为目标间隔查询对应课程。
+<p align="center">
+  <img src="docs/images/map-picker.png" width="760" alt="地图搜索、选点和自动获取地址">
+</p>
 
-窗口外不会请求活动接口。后台标签页可能被浏览器降低定时器频率，电脑休眠、浏览器退出或页面关闭期间无法检测，因此刷新间隔不是绝对保证。
+### 保存常用位置
 
-## 位置签到与 LCR007
+常用地点可以保存位置名称、经纬度和显示地址，数据只存放在当前浏览器的 Violentmonkey 或 Tampermonkey 中。地图预设用于查看和核对地点，位置签到仍由超星官方页面完成定位授权。
 
-位置签到不只校验经纬度。当前公开实现显示，新版流程还会关联活动列表返回的 `ext`、预签到页面、行为分析回传、当前账号和机构、设备上下文，以及验证码、人脸、照片和防作弊配置。
+<p align="center">
+  <img src="docs/images/saved-location.png" width="480" alt="保存常用位置名称、坐标和地址">
+</p>
 
-服务端没有公开 `locationAuthError_LCR007` 的正式定义。它与超出教师设置范围时常见的 `errorLocation_距离` 不是同一种响应。详细调查见 [`PROTOCOL-LCR007.md`](PROTOCOL-LCR007.md)。
+## 安装方法
 
-从 3.5.0 开始，脚本不再直接调用旧版位置提交接口。它会展示公开要求，并把课程、班级、活动 ID 和活动 `ext` 交给超星官方预签到页。定位和最终授权由超星官方页面或学习通客户端处理。地图预设只用于核对，不会被伪装成设备 GPS。
+1. 安装 [Violentmonkey](https://violentmonkey.github.io/get-it/) 或 Tampermonkey。
+2. Chrome 用户打开脚本管理器的扩展详情页，启用“允许用户脚本”。
+3. 点击 **[安装脚本](https://raw.githubusercontent.com/wguanfengyue/chaoxing-sign-helper/main/signscript.user.js)**，在脚本管理器页面确认安装。
+4. 正常登录超星，刷新页面。右下角出现“签到助手”即表示安装成功。
 
-## 支持范围
+第一次使用时，脚本管理器可能要求允许访问以下域名：
 
-| 类型 | 处理方式 |
+- `mooc1-api.chaoxing.com`：读取课程。
+- `mobilelearn.chaoxing.com`：读取活动和签到页面。
+- `kb.chaoxing.com`：读取首页课表。
+- `nominatim.openstreetmap.org`：搜索地点和获取地址。
+
+## 使用方法
+
+1. 在任意超星页面点击右下角“签到助手”。
+2. 点击“读取当前账号的签到活动”。
+3. 根据需要筛选普通、位置或旧版二维码签到。
+4. 普通签到和旧版二维码需要填写并核对内容后确认提交；位置签到会打开超星官方定位页。
+5. 如需提醒，打开“定时检测”，读取课表并勾选课程。
+
+## 支持的签到类型
+
+| 签到类型 | 使用方式 |
 | --- | --- |
-| 普通签到 | 用户核对后调用公开接口 |
-| 位置签到 | 打开超星官方定位流程 |
-| 旧版二维码 | 接受 32 位 `enc`，用户核对后提交 |
-| 新版 `SIGNIN:` 二维码 | 使用官方客户端 |
-| 验证码、人脸及其他额外校验 | 按官方页面或客户端提示完成 |
+| 普通签到 | 核对活动后手动确认 |
+| 位置签到 | 查看活动要求并进入超星官方定位页面 |
+| 旧版二维码签到 | 输入当前二维码链接或 32 位 `enc` 后确认 |
+| 新版 `SIGNIN:` 二维码 | 使用学习通官方客户端 |
+| 验证码、人脸等额外校验 | 按超星官方页面或客户端提示完成 |
 
-最终结果以超星签到记录为准。网络超时或返回不明时不要连续重复提交。
+## 隐私说明
 
-## 开发
+- 脚本不读取、显示或保存 Cookie、账号密码。
+- 姓名和地址只有在用户主动勾选保存时才写入本机脚本存储。
+- 坐标只有在用户主动保存常用位置时才会存储。
+- 地点搜索和所选坐标会发送给 OpenStreetMap Nominatim，以完成搜索和地址反查。
+- 最终签到结果以超星平台中的记录为准。网络异常或结果不明时，请先核对记录再操作。
+
+## 开发与贡献
 
 需要 Node.js 18 或更高版本：
 
@@ -72,17 +98,10 @@ npm test
 npm run check
 ```
 
-测试覆盖课程与活动解析、输入校验、响应判断、开放时间、地图投影、课表解析和检测窗口，不连接超星或地图服务，也不会提交签到。
+测试不会连接超星、地图服务或提交签到。参与开发前请阅读 [CONTRIBUTING.md](CONTRIBUTING.md)，版本变化见 [CHANGELOG.md](CHANGELOG.md)。
 
-## 项目来源
+本项目是独立的浏览器用户脚本重写，产品思路来自 [ziiing-lx/signscript](https://github.com/ziiing-lx/signscript)。原项目未提供开源许可证，本项目没有复制其 Java 源代码。
 
-这个项目是独立的浏览器用户脚本重写，产品思路来自 [ziiing-lx/signscript](https://github.com/ziiing-lx/signscript)。原仓库未提供开源许可证，本项目没有复制其 Java 源代码；接口行为通过公开网页、公开实现和只读请求重新验证。
+## 开源许可
 
-协议研究还参考了：
-
-- [ASCII-58/chaoxingsignfaker-for-harmony-OS-NEXT](https://github.com/ASCII-58/chaoxingsignfaker-for-harmony-OS-NEXT)
-- [MetaQiu/xxtSignApi](https://github.com/MetaQiu/xxtSignApi)
-
-## 许可证
-
-[MIT](LICENSE)
+[MIT License](LICENSE)
